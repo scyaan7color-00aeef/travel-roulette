@@ -3,7 +3,7 @@ import random
 import urllib.parse
 
 # ─────────────────────────────────────────────
-#  データ定義（全47都道府県対応・100スポット超）
+#  データ定義（全47都道府県対応・90スポット超）
 # ─────────────────────────────────────────────
 SPOTS = [
     # ═══════════════════════════════════════════
@@ -60,7 +60,7 @@ SPOTS = [
         "links": [{"label": "登別温泉観光", "url": "https://www.noboribetsu-spa.jp/"}],
     },
     {
-        "name": "札幌・大通公園・円山",
+        "name": "札幌・大通公園・すすきの",
         "pref": "北海道 札幌市",
         "region": "北海道",
         "category": ["グルメ", "自然・絶景"],
@@ -68,6 +68,16 @@ SPOTS = [
         "desc": "道都・札幌は北海道の玄関口。大通公園のビアガーデン（夏）や雪まつり（冬）が有名。すすきのの夜グルメ、円山動物園、羊ヶ丘展望台も定番です。",
         "highlights": ["大通公園", "札幌雪まつり（2月）", "すすきの夜グルメ", "羊ヶ丘展望台", "味噌ラーメン"],
         "links": [{"label": "札幌観光公式", "url": "https://www.sapporo.travel/"}],
+    },
+    {
+        "name": "釧路湿原・阿寒湖",
+        "pref": "北海道 釧路市・阿寒郡",
+        "region": "北海道",
+        "category": ["自然・絶景", "アウトドア"],
+        "seasons": ["春", "夏", "秋"],
+        "desc": "日本最大の湿原・釧路湿原は国立公園で、タンチョウヅルが生息する神秘的な大地。阿寒湖ではマリモの観察や湖上クルーズ、アイヌ文化体験が楽しめます。",
+        "highlights": ["釧路湿原カヌー", "タンチョウヅル", "阿寒湖マリモ", "アイヌ文化体験"],
+        "links": [{"label": "釧路観光", "url": "https://www.kushiro-kankou.or.jp/"}],
     },
 
     # ═══════════════════════════════════════════
@@ -110,7 +120,7 @@ SPOTS = [
         "category": ["歴史・文化", "グルメ"],
         "seasons": ["春", "秋"],
         "desc": "南部藩の城下町・盛岡は石垣が美しい盛岡城跡公園が有名。わんこそば・じゃじゃ麺・盛岡冷麺の「盛岡三大麺」は必食で、石割桜も春の名物です。",
-        "highlights": ["盛岡城跡（石割桜）", "わんこそば", "じゃじゃ麺", "盛岡冷麺", "開運橋"],
+        "highlights": ["盛岡城跡（石割桜）", "わんこそば", "じゃじゃ麺", "盛岡冷麺"],
         "links": [{"label": "盛岡観光", "url": "https://www.morioka-tourism.com/"}],
     },
     {
@@ -164,8 +174,8 @@ SPOTS = [
         "links": [{"label": "会津若松観光", "url": "https://www.aizukanko.com/"}],
     },
     {
-        "name": "郡山・磐梯山・猪苗代湖",
-        "pref": "福島県 郡山市・耶麻郡",
+        "name": "磐梯山・猪苗代湖・五色沼",
+        "pref": "福島県 耶麻郡・猪苗代町",
         "region": "東北",
         "category": ["自然・絶景", "アウトドア"],
         "seasons": ["春", "夏", "秋"],
@@ -178,7 +188,7 @@ SPOTS = [
     #  関東
     # ═══════════════════════════════════════════
     {
-        "name": "水戸・偕楽園・袋田の滝",
+        "name": "偕楽園・袋田の滝",
         "pref": "茨城県 水戸市・久慈郡",
         "region": "関東",
         "category": ["自然・絶景", "歴史・文化"],
@@ -258,13 +268,13 @@ SPOTS = [
         "links": [{"label": "箱根ナビ", "url": "https://www.hakonenavi.jp/"}],
     },
     {
-        "name": "浅草・上野・秋葉原",
-        "pref": "東京都 台東区・千代田区",
+        "name": "浅草・上野・東京スカイツリー",
+        "pref": "東京都 台東区",
         "region": "関東",
         "category": ["歴史・文化", "グルメ"],
         "seasons": ["春", "夏", "秋", "冬"],
-        "desc": "雷門・仲見世通りの浅草は東京最古の下町文化が息づく観光の中心地。上野公園の桜・博物館群、秋葉原のサブカルチャー、築地の海鮮も外せません。",
-        "highlights": ["浅草・雷門", "仲見世通り", "上野公園（桜）", "東京スカイツリー", "秋葉原"],
+        "desc": "雷門・仲見世通りの浅草は東京最古の下町文化が息づく観光の中心地。上野公園の桜・博物館群、東京スカイツリーからの絶景、築地の海鮮も外せません。",
+        "highlights": ["浅草・雷門", "仲見世通り", "上野公園（桜）", "東京スカイツリー", "築地海鮮"],
         "links": [{"label": "東京観光公式", "url": "https://www.gotokyo.org/jp/"}],
     },
     {
@@ -282,12 +292,12 @@ SPOTS = [
     #  中部
     # ═══════════════════════════════════════════
     {
-        "name": "佐渡島・新潟市街",
-        "pref": "新潟県 新潟市・佐渡市",
+        "name": "佐渡島・越後湯沢",
+        "pref": "新潟県 佐渡市・南魚沼郡",
         "region": "中部",
         "category": ["自然・絶景", "歴史・文化", "グルメ"],
         "seasons": ["春", "夏", "秋"],
-        "desc": "日本一の米どころ・新潟の日本酒と越後の山海の幸が揃う。佐渡島は金山の世界遺産登録が注目され、トキの野生復帰でも有名。へぎそばも名物です。",
+        "desc": "日本一の米どころ・新潟の日本酒と越後の山海の幸が揃う。佐渡島は金山の世界遺産登録が注目され、トキの野生復帰でも有名。越後湯沢のスキーも人気。",
         "highlights": ["佐渡金山（世界遺産）", "トキの森公園", "へぎそば", "日本酒巡り", "越後湯沢スキー"],
         "links": [{"label": "新潟観光", "url": "https://niigata-kankou.or.jp/"}],
     },
@@ -312,13 +322,13 @@ SPOTS = [
         "links": [{"label": "金沢観光公式", "url": "https://www.kanazawa-tourism.com/"}],
     },
     {
-        "name": "永平寺・東尋坊",
+        "name": "永平寺・東尋坊・越前ガニ",
         "pref": "福井県 吉田郡・坂井市",
         "region": "中部",
-        "category": ["歴史・文化", "自然・絶景"],
-        "seasons": ["春", "秋"],
+        "category": ["歴史・文化", "自然・絶景", "グルメ"],
+        "seasons": ["春", "秋", "冬"],
         "desc": "曹洞宗の大本山・永平寺は深い杉木立の中に70棟以上の堂宇が並ぶ修行の聖地。日本海に面した東尋坊の断崖絶壁と越前ガニが福井観光の二大名物です。",
-        "highlights": ["永平寺（修行の聖地）", "東尋坊の断崖", "越前ガニ", "恐竜博物館"],
+        "highlights": ["永平寺（修行の聖地）", "東尋坊の断崖", "越前ガニ（冬）", "恐竜博物館"],
         "links": [{"label": "福井観光", "url": "https://www.fuku-e.com/"}],
     },
     {
@@ -342,8 +352,8 @@ SPOTS = [
         "links": [{"label": "富士山オフィシャルサイト", "url": "https://www.fujisan-climb.jp/"}],
     },
     {
-        "name": "熱海・伊豆",
-        "pref": "静岡県 熱海市・伊豆半島",
+        "name": "熱海・伊豆・河津桜",
+        "pref": "静岡県 熱海市・賀茂郡",
         "region": "中部",
         "category": ["温泉・癒し", "自然・絶景", "グルメ"],
         "seasons": ["春", "夏", "冬"],
@@ -506,7 +516,7 @@ SPOTS = [
         "category": ["自然・絶景"],
         "seasons": ["春", "夏", "秋"],
         "desc": "日本最大の砂丘・鳥取砂丘は高さ47mの砂の大山脈。砂の美術館の精巧な砂像は世界屈指のレベル。らっきょうや松葉ガニも鳥取の名物です。",
-        "highlights": ["鳥取砂丘", "砂の美術館", "ラクダ乗り体験", "松葉ガニ", "らっきょう"],
+        "highlights": ["鳥取砂丘", "砂の美術館", "ラクダ乗り体験", "松葉ガニ"],
         "links": [{"label": "鳥取観光", "url": "https://www.tottori-tour.jp/"}],
     },
     {
@@ -658,12 +668,12 @@ SPOTS = [
         "links": [{"label": "宮崎観光", "url": "https://www.kanko-miyazaki.jp/"}],
     },
     {
-        "name": "桜島・指宿温泉",
+        "name": "桜島・指宿温泉・知覧",
         "pref": "鹿児島県 鹿児島市・指宿市",
         "region": "九州",
-        "category": ["自然・絶景", "温泉・癒し"],
+        "category": ["自然・絶景", "温泉・癒し", "歴史・文化"],
         "seasons": ["春", "秋"],
-        "desc": "今も噴煙を上げる活火山・桜島は鹿児島市のシンボル。「砂むし温泉」が有名な指宿温泉、知覧特攻平和会館、黒豚・芋焼酎が鹿児島観光の定番です。",
+        "desc": "今も噴煙を上げる活火山・桜島は鹿児島市のシンボル。砂むし温泉が有名な指宿、知覧特攻平和会館、黒豚・芋焼酎が鹿児島観光の定番コースです。",
         "highlights": ["桜島展望・フェリー", "指宿砂むし温泉", "知覧特攻平和会館", "黒豚料理・芋焼酎"],
         "links": [{"label": "鹿児島観光", "url": "https://www.kagoshima-kankou.com/"}],
     },
@@ -727,9 +737,7 @@ SPOTS = [
 #  定数
 # ─────────────────────────────────────────────
 ALL_REGIONS = ["全国", "北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州", "沖縄"]
-
 ALL_CATEGORIES = sorted({cat for spot in SPOTS for cat in spot["category"]})
-
 SEASON_EMOJI = {"春": "🌸", "夏": "☀️", "秋": "🍁", "冬": "❄️"}
 CATEGORY_EMOJI = {
     "歴史・文化": "🏯",
@@ -753,58 +761,58 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 #  CSS
 # ─────────────────────────────────────────────
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
-
-    h1 { font-family: 'Noto Serif JP', serif !important; }
-
-    .spot-card {
-        background: #f8f7f4;
-        border-radius: 16px;
-        padding: 1.5rem 1.8rem;
-        border: 1px solid #e0ddd6;
-        margin-top: 1rem;
-    }
-    .spot-name {
-        font-family: 'Noto Serif JP', serif;
-        font-size: 1.7rem;
-        font-weight: 700;
-        margin-bottom: 0.1rem;
-    }
-    .spot-pref {
-        color: #888;
-        font-size: 0.9rem;
-        margin-bottom: 0.8rem;
-    }
-    .tag {
-        display: inline-block;
-        background: #ede9e1;
-        border-radius: 999px;
-        padding: 3px 12px;
-        font-size: 0.78rem;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        color: #555;
-    }
-    .highlight-tag {
-        display: inline-block;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 4px 12px;
-        font-size: 0.82rem;
-        margin-right: 6px;
-        margin-bottom: 6px;
-        color: #444;
-    }
-    .season-good { color: #2e7d32; font-weight: 600; }
-    .season-off  { color: #bbb; }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+h1 { font-family: 'Noto Serif JP', serif !important; }
+.spot-card {
+    background: #f8f7f4;
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    border: 1px solid #e0ddd6;
+    margin-top: 1rem;
+}
+.spot-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 0.1rem;
+}
+.spot-pref { color: #888; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.tag {
+    display: inline-block;
+    background: #ede9e1;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: #555;
+}
+.highlight-tag {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.82rem;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    color: #444;
+}
+.season-good { color: #2e7d32; font-weight: 600; }
+.season-off  { color: #bbb; }
+.list-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #e8e5de;
+    margin-bottom: 0.5rem;
+}
+.list-name { font-weight: 700; font-size: 1.0rem; margin-bottom: 2px; }
+.list-pref { color: #999; font-size: 0.8rem; }
+</style>
+""", unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
 #  セッション初期化
@@ -813,13 +821,15 @@ if "spot" not in st.session_state:
     st.session_state.spot = None
 
 # ─────────────────────────────────────────────
-#  UI
+#  UI ヘッダー
 # ─────────────────────────────────────────────
 st.title("🗾 旅行プラン ルーレット")
-st.caption("全国47都道府県対応・100スポット超からランダムに観光地を提案します")
-
+st.caption("全国47都道府県対応・90スポット超からランダムに観光地を提案します")
 st.divider()
 
+# ─────────────────────────────────────────────
+#  フィルター
+# ─────────────────────────────────────────────
 col1, col2 = st.columns(2)
 with col1:
     region = st.selectbox("🗺️ 地方で絞り込む", ALL_REGIONS)
@@ -841,18 +851,28 @@ st.caption(f"対象スポット数: **{len(pool)}** 件")
 
 if len(pool) == 0:
     st.warning("条件に合うスポットが見つかりません。フィルターを変更してください。")
-else:
+    st.stop()
+
+# ─────────────────────────────────────────────
+#  タブ：ルーレット / 一覧
+# ─────────────────────────────────────────────
+tab_roulette, tab_list = st.tabs(["🎲 ランダム提案", "📋 一覧を見る"])
+
+# ══════════════════════════════
+#  タブ1：ルーレット
+# ══════════════════════════════
+with tab_roulette:
     if st.button("🎲 おすすめを探す", type="primary", use_container_width=True):
         st.session_state.spot = random.choice(pool)
 
     if st.session_state.spot is not None:
         spot = st.session_state.spot
+        # フィルター変更でプールから外れた場合はリセット
         if spot not in pool:
             st.session_state.spot = random.choice(pool)
             spot = st.session_state.spot
 
         st.divider()
-
         cat_tags = "".join(
             f'<span class="tag">{CATEGORY_EMOJI.get(c,"")} {c}</span>'
             for c in spot["category"]
@@ -866,31 +886,65 @@ else:
         highlight_tags = "".join(
             f'<span class="highlight-tag">{h}</span>' for h in spot["highlights"]
         )
-        link_md = " ｜ ".join(
-            f'[{lk["label"]}]({lk["url"]})' for lk in spot["links"]
-        )
+        link_md = " ｜ ".join(f'[{lk["label"]}]({lk["url"]})' for lk in spot["links"])
 
-        st.markdown(
-            f"""
-            <div class="spot-card">
-                <div class="spot-name">{spot['name']}</div>
-                <div class="spot-pref">📍 {spot['pref']}</div>
-                {cat_tags}
-                <hr style="border:none;border-top:1px solid #e0ddd6;margin:0.8rem 0;">
-                <p style="font-size:0.88rem;margin-bottom:0.5rem;">{season_html}</p>
-                <p style="line-height:1.9;font-size:0.95rem;">{spot['desc']}</p>
-                <p style="margin-top:0.6rem;">{highlight_tags}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown(f"""
+        <div class="spot-card">
+            <div class="spot-name">{spot['name']}</div>
+            <div class="spot-pref">📍 {spot['pref']}</div>
+            {cat_tags}
+            <hr style="border:none;border-top:1px solid #e0ddd6;margin:0.8rem 0;">
+            <p style="font-size:0.88rem;margin-bottom:0.5rem;">{season_html}</p>
+            <p style="line-height:1.9;font-size:0.95rem;">{spot['desc']}</p>
+            <p style="margin-top:0.6rem;">{highlight_tags}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
         st.markdown(f"🔗 **関連リンク**: {link_md}")
-
         query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
-        st.markdown(
-            f"[🗺️ Google マップで見る](https://www.google.com/maps/search/?api=1&query={query})"
-        )
+        st.markdown(f"[🗺️ Google マップで見る](https://www.google.com/maps/search/?api=1&query={query})")
+
+# ══════════════════════════════
+#  タブ2：一覧
+# ══════════════════════════════
+with tab_list:
+    # 地方ごとにグループ化して表示
+    region_order = ["北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州", "沖縄"]
+
+    if region != "全国":
+        # 特定地方フィルター中はグループ不要
+        groups = {region: pool}
+    else:
+        groups = {}
+        for r in region_order:
+            spots_in_r = [s for s in pool if s["region"] == r]
+            if spots_in_r:
+                groups[r] = spots_in_r
+
+    for region_name, spots_in_region in groups.items():
+        st.subheader(f"📍 {region_name}  ({len(spots_in_region)}件)")
+        for spot in spots_in_region:
+            cat_str = "　".join(
+                f"{CATEGORY_EMOJI.get(c,'')} {c}" for c in spot["category"]
+            )
+            season_str = " ".join(
+                f"{SEASON_EMOJI[s]}{s}" if s in spot["seasons"] else f"　　"
+                for s in ["春", "夏", "秋", "冬"]
+            )
+            with st.expander(f"**{spot['name']}**　　{spot['pref']}"):
+                st.markdown(f"**カテゴリ**: {cat_str}")
+                st.markdown(f"**おすすめ季節**: {season_str}")
+                st.markdown(spot["desc"])
+                highlights_str = "　／　".join(spot["highlights"])
+                st.markdown(f"**見どころ**: {highlights_str}")
+                link_md = " ｜ ".join(
+                    f'[{lk["label"]}]({lk["url"]})' for lk in spot["links"]
+                )
+                query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
+                st.markdown(
+                    f"🔗 {link_md}　　"
+                    f"[🗺️ Googleマップ](https://www.google.com/maps/search/?api=1&query={query})"
+                )
 
 # ─────────────────────────────────────────────
 #  フッター
