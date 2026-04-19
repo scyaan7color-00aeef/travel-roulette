@@ -63,10 +63,39 @@ def api_random():
     pref_name = spot["pref"].split()[0]  # 都道府県名のみ抽出
     jalan_url = "https://www.jalan.net/yad/?CenS=1&keyword=" + urllib.parse.quote(pref_name)
 
+    nearby_details = [
+        {**s, "map_url": f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote(s['name'] + ' ' + s['pref'])}"}
+        for s in SPOTS if s["name"] in spot.get("nearby", [])
+    ]
+
     return jsonify({
         **spot,
         "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
         "jalan_url": jalan_url,
+        "nearby_details": nearby_details,
+    })
+
+
+@app.route("/api/spot_by_name")
+def api_spot_by_name():
+    """スポット名で1件をJSONで返す（周辺スポットからの遷移用）"""
+    name = request.args.get("name", "")
+    spot = next((s for s in SPOTS if s["name"] == name), None)
+    if not spot:
+        return jsonify({"error": "スポットが見つかりません。"}), 404
+
+    query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
+    pref_name = spot["pref"].split()[0]
+    jalan_url = "https://www.jalan.net/yad/?CenS=1&keyword=" + urllib.parse.quote(pref_name)
+    nearby_details = [
+        {**s, "map_url": f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote(s['name'] + ' ' + s['pref'])}"}
+        for s in SPOTS if s["name"] in spot.get("nearby", [])
+    ]
+    return jsonify({
+        **spot,
+        "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
+        "jalan_url": jalan_url,
+        "nearby_details": nearby_details,
     })
 
 
@@ -100,10 +129,15 @@ def api_spots():
             query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
             pref_name = spot["pref"].split()[0]
             jalan_url = "https://www.jalan.net/yad/?CenS=1&keyword=" + urllib.parse.quote(pref_name)
+            nearby_details = [
+                {**s, "map_url": f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote(s['name'] + ' ' + s['pref'])}"}
+                for s in SPOTS if s["name"] in spot.get("nearby", [])
+            ]
             result[region_name].append({
                 **spot,
                 "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
                 "jalan_url": jalan_url,
+                "nearby_details": nearby_details,
             })
 
     return jsonify({"regions": result, "total": len(pool)})

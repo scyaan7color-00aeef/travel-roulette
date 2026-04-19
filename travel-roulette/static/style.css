@@ -542,6 +542,111 @@ a:hover {
 }
 
 /* ─────────────────────────────────────────────
+   周辺おすすめ観光地
+   ───────────────────────────────────────────── */
+.nearby-section {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.nearby-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-main);
+    margin-bottom: 0.9rem;
+    font-weight: 700;
+}
+
+.nearby-grid {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
+
+.nearby-card {
+    flex: 1 1 180px;
+    max-width: 240px;
+    background: #f5f8f5;
+    border: 1px solid #c8ddc8;
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.nearby-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--color-text);
+    line-height: 1.45;
+}
+
+.nearby-pref {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.nearby-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.1rem;
+}
+
+.nearby-tag {
+    display: inline-block;
+    background: #e6f0e6;
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-size: 0.73rem;
+    color: var(--color-main-dark);
+}
+
+.nearby-btn {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.35rem 0.6rem;
+    background: var(--color-main);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+    font-family: inherit;
+}
+
+.nearby-btn:hover {
+    background: var(--color-main-dark);
+}
+
+/* アコーディオン内の周辺スポット */
+.accordion-nearby {
+    margin-top: 0.9rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.accordion-nearby .nearby-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+}
+
+.accordion-nearby .nearby-grid {
+    gap: 0.5rem;
+}
+
+.accordion-nearby .nearby-card {
+    flex: 1 1 150px;
+    max-width: 200px;
+    padding: 0.6rem 0.75rem;
+}
+
+/* ─────────────────────────────────────────────
    広告スペース
    ───────────────────────────────────────────── */
 .ad-space {
@@ -825,6 +930,19 @@ a:hover {
     /* コンテンツカード */
     .content-card {
         padding: 1.2rem;
+    }
+
+    /* 周辺スポット */
+    .nearby-grid {
+        flex-direction: column;
+    }
+
+    .nearby-card {
+        max-width: 100%;
+    }
+
+    .accordion-nearby .nearby-card {
+        max-width: 100%;
     }
 }
 

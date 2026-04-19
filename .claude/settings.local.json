@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"from data import SPOTS; print\\(f'スポット数: {len\\(SPOTS\\)}件'\\)\")",
+      "Bash(python -c \"from data import SPOTS; print\\(len\\(SPOTS\\)\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python *)"
+    ]
+  }
+}
