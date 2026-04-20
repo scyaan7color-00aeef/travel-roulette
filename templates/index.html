@@ -85,79 +85,14 @@
 {% block scripts %}
 <script>
 // ═══════════════════════════════════════════════════
-//  定数・状態管理
+//  HTML生成ヘルパー（DOM不要のため外側に定義）
 // ═══════════════════════════════════════════════════
 const SEASON_EMOJI = { "春": "🌸", "夏": "☀️", "秋": "🍁", "冬": "❄️" };
 const CATEGORY_EMOJI = {
     "歴史・文化": "🏯", "自然・絶景": "🏔️", "アウトドア": "🥾",
     "グルメ": "🍜", "温泉・癒し": "♨️", "世界遺産": "🌏", "夜景": "🌃",
 };
-let selectedSeason = "";
-let listLoaded = false;  // 一覧を一度だけ読み込むためのフラグ
 
-// ═══════════════════════════════════════════════════
-//  フィルター値の取得
-// ═══════════════════════════════════════════════════
-function getFilterParams() {
-    const region = document.getElementById("regionSelect").value;
-    const checkedCats = [...document.querySelectorAll(".cat-checkbox:checked")].map(cb => cb.value);
-    return {
-        region,
-        category: checkedCats.join(","),
-        season: selectedSeason,
-    };
-}
-
-function buildQueryString(params) {
-    return new URLSearchParams(Object.fromEntries(
-        Object.entries(params).filter(([, v]) => v !== "")
-    )).toString();
-}
-
-// ═══════════════════════════════════════════════════
-//  季節ボタンの切り替え
-// ═══════════════════════════════════════════════════
-document.querySelectorAll(".season-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".season-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedSeason = btn.dataset.season;
-        // フィルターが変わったら一覧のキャッシュをリセット
-        listLoaded = false;
-        document.getElementById("spotList").innerHTML = "";
-        document.getElementById("loadListBtn").style.display = "block";
-    });
-});
-
-// フィルター変更時に一覧キャッシュをリセット
-document.getElementById("regionSelect").addEventListener("change", () => {
-    listLoaded = false;
-    document.getElementById("spotList").innerHTML = "";
-    document.getElementById("loadListBtn").style.display = "block";
-});
-document.querySelectorAll(".cat-checkbox").forEach(cb => {
-    cb.addEventListener("change", () => {
-        listLoaded = false;
-        document.getElementById("spotList").innerHTML = "";
-        document.getElementById("loadListBtn").style.display = "block";
-    });
-});
-
-// ═══════════════════════════════════════════════════
-//  タブ切り替え
-// ═══════════════════════════════════════════════════
-document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-        btn.classList.add("active");
-        document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
-    });
-});
-
-// ═══════════════════════════════════════════════════
-//  スポットカードのHTML生成
-// ═══════════════════════════════════════════════════
 function buildCategoryTags(categories) {
     return categories.map(c =>
         `<span class="tag">${CATEGORY_EMOJI[c] || ""} ${c}</span>`
@@ -184,32 +119,6 @@ function buildLinkButtons(links) {
     }).join("");
 }
 
-// ═══════════════════════════════════════════════════
-//  ランダム提案ボタン
-// ═══════════════════════════════════════════════════
-document.getElementById("spinBtn").addEventListener("click", async () => {
-    const params = getFilterParams();
-    const qs = buildQueryString(params);
-    const cardEl = document.getElementById("spotCard");
-
-    cardEl.innerHTML = '<p class="loading">🎲 旅行先を探し中...</p>';
-
-    try {
-        const res = await fetch(`/api/random?${qs}`);
-        if (!res.ok) {
-            const err = await res.json();
-            cardEl.innerHTML = `<p class="error-msg">⚠️ ${err.error || "エラーが発生しました"}</p>`;
-            return;
-        }
-        const spot = await res.json();
-        cardEl.innerHTML = buildSpotCard(spot);
-        // フェードインのためのクラス付与
-        cardEl.querySelector(".spot-card").classList.add("fade-in");
-    } catch (e) {
-        cardEl.innerHTML = '<p class="error-msg">⚠️ 通信エラーが発生しました。しばらく待ってから再度お試しください。</p>';
-    }
-});
-
 function buildSpotCard(spot) {
     return `
     <div class="spot-card">
@@ -229,55 +138,6 @@ function buildSpotCard(spot) {
         </a>
     </div>`;
 }
-
-// ═══════════════════════════════════════════════════
-//  一覧の読み込み
-// ═══════════════════════════════════════════════════
-document.getElementById("loadListBtn").addEventListener("click", async () => {
-    if (listLoaded) return;
-
-    const params = getFilterParams();
-    const qs = buildQueryString(params);
-    const listEl = document.getElementById("spotList");
-    const loadBtn = document.getElementById("loadListBtn");
-
-    listEl.innerHTML = '<p class="loading">📋 一覧を読み込み中...</p>';
-
-    try {
-        const res = await fetch(`/api/spots?${qs}`);
-        if (!res.ok) {
-            const err = await res.json();
-            listEl.innerHTML = `<p class="error-msg">⚠️ ${err.error || "エラーが発生しました"}</p>`;
-            return;
-        }
-        const data = await res.json();
-
-        let html = `<p class="list-count">対象スポット: <strong>${data.total}</strong>件</p>`;
-
-        for (const [regionName, spots] of Object.entries(data.regions)) {
-            html += `<h2 class="region-heading">📍 ${regionName}（${spots.length}件）</h2>`;
-            html += `<div class="accordion-list">`;
-            spots.forEach(spot => {
-                html += buildAccordionItem(spot);
-            });
-            html += `</div>`;
-        }
-
-        listEl.innerHTML = html;
-        loadBtn.style.display = "none";
-        listLoaded = true;
-
-        // アコーディオンの動作を設定
-        listEl.querySelectorAll(".accordion-header").forEach(header => {
-            header.addEventListener("click", () => {
-                const item = header.parentElement;
-                item.classList.toggle("open");
-            });
-        });
-    } catch (e) {
-        listEl.innerHTML = '<p class="error-msg">⚠️ 通信エラーが発生しました。しばらく待ってから再度お試しください。</p>';
-    }
-});
 
 function buildAccordionItem(spot) {
     const catStr = spot.category.map(c => `${CATEGORY_EMOJI[c] || ""} ${c}`).join("　");
@@ -307,5 +167,134 @@ function buildAccordionItem(spot) {
         </div>
     </div>`;
 }
+
+// ═══════════════════════════════════════════════════
+//  DOM操作はすべて DOMContentLoaded 内で実行
+// ═══════════════════════════════════════════════════
+document.addEventListener("DOMContentLoaded", function () {
+    let selectedSeason = "";
+    let listLoaded = false;
+
+    // ── フィルター値の取得 ──
+    function getFilterParams() {
+        const region = document.getElementById("regionSelect").value;
+        const checkedCats = [...document.querySelectorAll(".cat-checkbox:checked")].map(cb => cb.value);
+        return {
+            region,
+            category: checkedCats.join(","),
+            season: selectedSeason,
+        };
+    }
+
+    function buildQueryString(params) {
+        return new URLSearchParams(Object.fromEntries(
+            Object.entries(params).filter(([, v]) => v !== "")
+        )).toString();
+    }
+
+    // ── 季節ボタンの切り替え ──
+    document.querySelectorAll(".season-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".season-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedSeason = btn.dataset.season;
+            listLoaded = false;
+            document.getElementById("spotList").innerHTML = "";
+            document.getElementById("loadListBtn").style.display = "block";
+        });
+    });
+
+    // ── フィルター変更時に一覧キャッシュをリセット ──
+    document.getElementById("regionSelect").addEventListener("change", () => {
+        listLoaded = false;
+        document.getElementById("spotList").innerHTML = "";
+        document.getElementById("loadListBtn").style.display = "block";
+    });
+    document.querySelectorAll(".cat-checkbox").forEach(cb => {
+        cb.addEventListener("change", () => {
+            listLoaded = false;
+            document.getElementById("spotList").innerHTML = "";
+            document.getElementById("loadListBtn").style.display = "block";
+        });
+    });
+
+    // ── タブ切り替え ──
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+        });
+    });
+
+    // ── ランダム提案ボタン ──
+    document.getElementById("spinBtn").addEventListener("click", async () => {
+        const params = getFilterParams();
+        const qs = buildQueryString(params);
+        const cardEl = document.getElementById("spotCard");
+
+        cardEl.innerHTML = '<p class="loading">🎲 旅行先を探し中...</p>';
+
+        try {
+            const res = await fetch(`/api/random?${qs}`);
+            if (!res.ok) {
+                const err = await res.json();
+                cardEl.innerHTML = `<p class="error-msg">⚠️ ${err.error || "エラーが発生しました"}</p>`;
+                return;
+            }
+            const spot = await res.json();
+            cardEl.innerHTML = buildSpotCard(spot);
+            cardEl.querySelector(".spot-card").classList.add("fade-in");
+        } catch (e) {
+            cardEl.innerHTML = '<p class="error-msg">⚠️ 通信エラーが発生しました。しばらく待ってから再度お試しください。</p>';
+        }
+    });
+
+    // ── 一覧の読み込み ──
+    document.getElementById("loadListBtn").addEventListener("click", async () => {
+        if (listLoaded) return;
+
+        const params = getFilterParams();
+        const qs = buildQueryString(params);
+        const listEl = document.getElementById("spotList");
+        const loadBtn = document.getElementById("loadListBtn");
+
+        listEl.innerHTML = '<p class="loading">📋 一覧を読み込み中...</p>';
+
+        try {
+            const res = await fetch(`/api/spots?${qs}`);
+            if (!res.ok) {
+                const err = await res.json();
+                listEl.innerHTML = `<p class="error-msg">⚠️ ${err.error || "エラーが発生しました"}</p>`;
+                return;
+            }
+            const data = await res.json();
+
+            let html = `<p class="list-count">対象スポット: <strong>${data.total}</strong>件</p>`;
+
+            for (const [regionName, spots] of Object.entries(data.regions)) {
+                html += `<h2 class="region-heading">📍 ${regionName}（${spots.length}件）</h2>`;
+                html += `<div class="accordion-list">`;
+                spots.forEach(spot => {
+                    html += buildAccordionItem(spot);
+                });
+                html += `</div>`;
+            }
+
+            listEl.innerHTML = html;
+            loadBtn.style.display = "none";
+            listLoaded = true;
+
+            listEl.querySelectorAll(".accordion-header").forEach(header => {
+                header.addEventListener("click", () => {
+                    header.parentElement.classList.toggle("open");
+                });
+            });
+        } catch (e) {
+            listEl.innerHTML = '<p class="error-msg">⚠️ 通信エラーが発生しました。しばらく待ってから再度お試しください。</p>';
+        }
+    });
+});
 </script>
 {% endblock %}
