@@ -60,10 +60,7 @@ def api_random():
     spot = random.choice(pool)
     # GoogleマップURLとじゃらんURLをサーバー側で生成
     query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
-    pref_name = spot["pref"].split()[0]  # 都道府県名のみ抽出
-    jalan_base = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA&a8ejpredirect="
-    jalan_search = f"https://www.jalan.net/yad/?CenS=1&keyword={pref_name}"
-    jalan_url = jalan_base + urllib.parse.quote(jalan_search, safe="")
+    jalan_url = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA"
 
     return jsonify({
         **spot,
@@ -100,10 +97,7 @@ def api_spots():
         result[region_name] = []
         for spot in spots:
             query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
-            pref_name = spot["pref"].split()[0]
-            jalan_base = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA&a8ejpredirect="
-            jalan_search = f"https://www.jalan.net/yad/?CenS=1&keyword={pref_name}"
-            jalan_url = jalan_base + urllib.parse.quote(jalan_search, safe="")
+            jalan_url = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA"
             result[region_name].append({
                 **spot,
                 "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
