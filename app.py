@@ -58,14 +58,11 @@ def api_random():
         return jsonify({"error": "条件に合うスポットが見つかりません。"}), 404
 
     spot = random.choice(pool)
-    # GoogleマップURLとじゃらんURLをサーバー側で生成
     query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
-    jalan_url = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA"
 
     return jsonify({
         **spot,
         "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
-        "jalan_url": jalan_url,
     })
 
 
@@ -97,11 +94,9 @@ def api_spots():
         result[region_name] = []
         for spot in spots:
             query = urllib.parse.quote(f"{spot['name']} {spot['pref']}")
-            jalan_url = "https://px.a8.net/svt/ejp?a8mat=4B1PLQ+1SCD6+14CS+67JUA"
             result[region_name].append({
                 **spot,
                 "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
-                "jalan_url": jalan_url,
             })
 
     return jsonify({"regions": result, "total": len(pool)})
