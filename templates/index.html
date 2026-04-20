@@ -177,9 +177,11 @@ function buildHighlightTags(highlights) {
 }
 
 function buildLinkButtons(links) {
-    return links.map(lk =>
-        `<a href="${lk.url}" target="_blank" rel="noopener noreferrer" class="link-btn">${lk.label}</a>`
-    ).join("");
+    return links.map(lk => {
+        const cls = lk.affiliate ? "btn-affiliate" : "link-btn";
+        const rel = lk.affiliate ? "nofollow noopener noreferrer" : "noopener noreferrer";
+        return `<a href="${lk.url}" target="_blank" rel="${rel}" class="${cls}">${lk.label}</a>`;
+    }).join("");
 }
 
 // ═══════════════════════════════════════════════════
