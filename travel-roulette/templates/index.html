@@ -249,6 +249,22 @@ function buildSpotCard(spot) {
         </a>
         <img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4B1PLQ+1SCD6+14CS+61RI9" alt="" style="display:none;">
         ${buildNearbySection(spot.nearby_details)}
+        ${(() => {
+            if (!spot.rainy_alternatives || spot.rainy_alternatives.length === 0) return '';
+            return `
+        <div class="rainy-section">
+            <h4>☔ 雨の日はこちら</h4>
+            <div class="rainy-list">
+                ${spot.rainy_alternatives.map(r => `
+                    <div class="rainy-card">
+                        <span class="rainy-badge">${r.category}</span>
+                        <p class="rainy-name">${r.name}</p>
+                        <p class="rainy-desc">${r.desc}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>`;
+        })()}
     </div>`;
 }
 
@@ -385,6 +401,22 @@ function buildAccordionItem(spot) {
             </a>
             <img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4B1PLQ+1SCD6+14CS+61RI9" alt="" style="display:none;">
             ${buildAccordionNearby(spot.nearby_details)}
+            ${(() => {
+                if (!spot.rainy_alternatives || spot.rainy_alternatives.length === 0) return '';
+                return `
+            <div class="rainy-section">
+                <h4>☔ 雨の日はこちら</h4>
+                <div class="rainy-list">
+                    ${spot.rainy_alternatives.map(r => `
+                        <div class="rainy-card">
+                            <span class="rainy-badge">${r.category}</span>
+                            <p class="rainy-name">${r.name}</p>
+                            <p class="rainy-desc">${r.desc}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+            })()}
         </div>
     </div>`;
 }

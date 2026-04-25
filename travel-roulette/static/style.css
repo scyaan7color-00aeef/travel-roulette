@@ -964,3 +964,56 @@ a:hover {
         padding: 0.35rem 0.7rem;
     }
 }
+
+/* ─────────────────────────────────────────────
+   雨の日の代替スポット
+   ───────────────────────────────────────────── */
+.rainy-section {
+    margin-top: 1.2rem;
+    padding: 1rem;
+    background: #eef4f9;
+    border-left: 3px solid #4a90c2;
+    border-radius: 8px;
+}
+.rainy-section h4 {
+    font-size: 14px;
+    color: #2a5a7a;
+    margin: 0 0 0.8rem 0;
+}
+.rainy-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+@media (max-width: 600px) {
+    .rainy-list {
+        grid-template-columns: 1fr;
+    }
+}
+.rainy-card {
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #d0dce8;
+}
+.rainy-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: #4a90c2;
+    color: #fff;
+    border-radius: 999px;
+    margin-bottom: 4px;
+}
+.rainy-name {
+    font-weight: 600;
+    font-size: 13px;
+    margin: 2px 0;
+    color: #1a3a1c;
+}
+.rainy-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
