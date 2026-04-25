@@ -73,6 +73,7 @@ def api_random():
         "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
         "jalan_url": jalan_url,
         "nearby_details": nearby_details,
+        "rainy_alternatives": spot.get("rainy_alternatives", []),
     })
 
 
@@ -96,6 +97,7 @@ def api_spot_by_name():
         "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
         "jalan_url": jalan_url,
         "nearby_details": nearby_details,
+        "rainy_alternatives": spot.get("rainy_alternatives", []),
     })
 
 
@@ -138,6 +140,7 @@ def api_spots():
                 "map_url": f"https://www.google.com/maps/search/?api=1&query={query}",
                 "jalan_url": jalan_url,
                 "nearby_details": nearby_details,
+                "rainy_alternatives": spot.get("rainy_alternatives", []),
             })
 
     return jsonify({"regions": result, "total": len(pool)})
